@@ -1,17 +1,41 @@
+<div align="center">
+
+<img src="docs/images/icon.png" width="128" height="128" alt="sheets-viewer icon">
+
 # sheets-viewer
 
-A single-file, read-only spreadsheet viewer built to be the target of **citation
-links** — e.g. from a RAG pipeline that answers questions from spreadsheets.
-A link opens a workbook on the right sheet, scrolls to the cited rows or
-columns, highlights them, and explains in a banner what is being cited.
+**A single-file, read-only spreadsheet viewer built to be the target of citation links.**
 
-- One HTML file, no build step, no dependencies to install.
-- Fully self-contained: a Content-Security-Policy stops the page from loading
-  or contacting anything except the linked spreadsheet on its own site.
-  No analytics, CDNs or fonts.
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![HTML](https://img.shields.io/badge/one%20file-HTML-E34F26.svg)](sheets-viewer.html)
+[![Build](https://img.shields.io/badge/build%20step-none-2ea44f.svg)](#hosting)
+[![CSP](https://img.shields.io/badge/CSP-same%20site%20only-555.svg)](#hosting)
+[![SheetJS](https://img.shields.io/badge/SheetJS-0.18.5-lightgrey.svg)](#limits-and-known-issues)
+
+<img src="docs/images/citation.png" width="860" alt="The viewer open on a cited row, with the cited column highlighted and a banner showing the claim">
+
+<sub>A citation link on a made-up CSV: <code>highlight=F-1007|761&amp;columns=Program&amp;note=…</code></sub>
+
+</div>
+
+Built for a RAG pipeline that answers questions from spreadsheets: a link opens a workbook on the right sheet,
+scrolls to the cited rows or columns, highlights them, and explains in a banner what is being cited.
+
+| 1 | 0 | 100,000 | 5,000 |
+|:---:|:---:|:---:|:---:|
+| HTML file, no build step | dependencies to install, no analytics, CDNs or fonts | rows tested | row render window; search and citations cover every row |
+
+- Fully self-contained: a Content-Security-Policy stops the page from loading or contacting anything except the
+  linked spreadsheet on its own site.
 - Reads `.xlsx .xlsm .xlsb .xls .ods .csv .tsv .numbers` and more (via SheetJS).
-- Handles large sheets (tested at 100,000 rows): rows render in a movable
-  5,000-row window, while search and citations cover every row.
+
+```mermaid
+flowchart LR
+    Q["Question"] --> M["Model answers<br/>+ citation object"]
+    M --> U["Your code builds the URL<br/>citation_url()"]
+    U --> V["sheets-viewer.html<br/>?file=…&sheet=…"]
+    V --> H["Right sheet, cited rows or columns<br/>highlighted, claim in the banner"]
+```
 
 ## Hosting
 
