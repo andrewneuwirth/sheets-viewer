@@ -1,7 +1,5 @@
 <div align="center">
 
-<img src="docs/images/icon.png" width="128" height="128" alt="sheets-viewer icon">
-
 # sheets-viewer
 
 **A single-file, read-only spreadsheet viewer built to be the target of citation links.**
